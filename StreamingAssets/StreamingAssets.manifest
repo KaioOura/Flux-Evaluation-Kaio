@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 2627676666
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: resources
+      Dependencies: {}
+    Info_1:
+      Name: bundlebuilds/prefabs/enviroment
+      Dependencies: {}
