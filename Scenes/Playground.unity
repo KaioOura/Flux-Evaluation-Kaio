@@ -1045,6 +1045,14 @@ PrefabInstance:
       propertyPath: maxJumpsInAir
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: minTimeAttack
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: GroundedRadius
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918493, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: m_NotificationBehavior
       value: 0
@@ -1227,7 +1235,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 8345070699079395523, guid: 09aade0ecefd01e4b8f7661acf64f5c2, type: 3}
-  path: 
 --- !u!4 &1790552807
 Transform:
   m_ObjectHideFlags: 0

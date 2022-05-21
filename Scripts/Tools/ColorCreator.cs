@@ -6,7 +6,9 @@ using UnityEditor;
 #if UNITY_EDITOR
 public class ColorCreator : EditorWindow
 {
+    [SerializeField]
     List<Color> colors = new List<Color>();
+    string[] strings;
 
     ColorPicker colorPicker;
 
@@ -15,7 +17,10 @@ public class ColorCreator : EditorWindow
     [MenuItem("Window/Tools/ColorCreator")]
     public static void ShowWindow()
     {
-        GetWindow<ColorCreator>("Color Creator Tool");
+        ColorCreator window = (ColorCreator)GetWindow(typeof(ColorCreator));
+        window.minSize = new Vector2(300, 200);
+        window.maxSize = new Vector2(300, 600);
+        window.Show();
     }
 
     private void OnGUI()
@@ -24,95 +29,53 @@ public class ColorCreator : EditorWindow
 
         GUILayout.Space(20);
 
-        Object[] selection = Selection.GetFiltered(typeof(ColorPicker), SelectionMode.Assets);
-        Object[] colorSelection = Selection.GetFiltered(typeof(Color), SelectionMode.Assets);
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Color Picker");
+        colorPicker = (ColorPicker)EditorGUILayout.ObjectField(colorPicker, typeof(ColorPicker), false);
+        GUILayout.EndHorizontal();
+
+        GUILayout.Space(20);
+
+         ScriptableObject target = this;
+         SerializedObject so = new SerializedObject(target);
+         SerializedProperty stringsProperty = so.FindProperty("colors");
+ 
+         EditorGUILayout.PropertyField(stringsProperty, true);
+         so.ApplyModifiedProperties();
 
 
-        //if (selection.Length > 0)
-        //{
-        //    colors.Clear();
+        GUILayout.Space(20);
 
-        //    ColorPicker cp = selection[0] as ColorPicker;
-        //    foreach (var item in cp.colors)
-        //    {
-        //        colors.Add(item);
-        //    }
-
-        //    if (colors.Count > 0)
-        //    {
-        //        for (int i = 0; i < colors.Count; i++)
-        //        {
-        //            colors[i] = EditorGUILayout.ColorField("Color", colors[i]);
-
-        //        }
-        //    }
-
-        //}
-        //else
+        if (GUILayout.Button("Get colors"))
         {
-            // colors.Clear();
-
-            if (colors.Count > 0)
+            if (colorPicker != null)
             {
-                for (int i = 0; i < colors.Count; i++)
-                {
-                    colors[i] = EditorGUILayout.ColorField("Color", colors[i]);
+                colors.Clear();
 
+                foreach (var item in colorPicker.colors)
+                {
+                    colors.Add(item);
                 }
             }
         }
 
-
-        if (GUILayout.Button("Add new color"))
+        if (GUILayout.Button("Set colors"))
         {
-            colors.Add(new Color());
 
-            //if (selection.Length > 0)
-            //{
-            //    ColorPicker cp = selection[0] as ColorPicker;
-
-            //    cp.colors.Add(new Color());
-
-            //    foreach (var item in cp.colors)
-            //    {
-            //        colors.Add(item);
-            //    }
-            //}
-
-        }
-
-        if (GUILayout.Button("Remove color"))
-        {
-            colors.Remove(colors[colors.Count - 1]);
-            //if (selection.Length > 0)
-            //{
-            //    ColorPicker cp = selection[0] as ColorPicker;
-
-            //    cp.colors.Remove(cp.colors[cp.colors.Count - 1]);
-
-            //    foreach (var item in cp.colors)
-            //    {
-            //        colors.Add(item);
-            //    }
-            //}
-
-        }
-
-        if (GUILayout.Button("Send colors"))
-        {
-            //colors.Add(new Color());
-            if (selection.Length > 0)
+            if (EditorUtility.DisplayDialog("Set new colors?","Are you sure you want to replace " + colorPicker.name + "?", "Yes, replace colors", "No"))
             {
-                ColorPicker cp = selection[0] as ColorPicker;
+                if (colorPicker != null)
+                {
 
-                cp.colors.Clear();
+                colorPicker.colors.Clear();
 
                 foreach (var item in colors)
                 {
-                    cp.colors.Add(item);
+                    colorPicker.colors.Add(item);
+                }
                 }
             }
-
+        
         }
 
     }

@@ -6,6 +6,7 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI attackPerfomedTMP;
+    bool alreadyDisabled = false;
 
     // Start is called before the first frame update
     void Start()
@@ -15,12 +16,13 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if (ActionTracker.instance != null)
+        if (alreadyDisabled)
             ActionTracker.instance.OnAttackPerfomedEvent += UpdateAttacksPerformedUI;
     }
 
     private void OnDisable()
     {
+        alreadyDisabled = true;
         ActionTracker.instance.OnAttackPerfomedEvent -= UpdateAttacksPerformedUI;
     }
 

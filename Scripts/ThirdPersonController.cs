@@ -107,6 +107,8 @@ namespace StarterAssets
 
         private bool IsCurrentDeviceMouse => _playerInput.currentControlScheme == "KeyboardMouse";
 
+        bool alreadyDisabled;
+
         // Simple event called when the character kicks or punches
         public Action OnAttackEvent;
 
@@ -125,11 +127,12 @@ namespace StarterAssets
             controls.Player.Attack2.performed += ctx => KickAttack();
         }
 
+        
         private void OnEnable()
         {
             controls.Enable();
 
-            if (ActionTracker.instance != null)
+            if (alreadyDisabled)
                 OnAttackEvent += ActionTracker.instance.AddAttackPerformed;
         }
 
@@ -138,6 +141,7 @@ namespace StarterAssets
             controls.Disable();
 
             OnAttackEvent -= ActionTracker.instance.AddAttackPerformed;
+            alreadyDisabled = true;
         }
 
         private void Start()

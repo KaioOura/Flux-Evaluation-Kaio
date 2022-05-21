@@ -5,10 +5,8 @@ using UnityEngine.InputSystem;
 
 public class ResourcesLoad : MonoBehaviour
 {
-#if UNITY_EDITOR
+
     [SerializeField] private GameObject prefab;
-#endif
-    [SerializeField, HideInInspector] private string path;
 
     void Awake()
     {
