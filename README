@@ -7,4 +7,8 @@ No repositório se encontram:
 
 Ao longo dos códigos adicionei comentários que ajudam a entender como cada bloco de código funciona.
 
+A tool para criar novas cores se encontra em Window/Tools/ColorCreator
+Para usar basta selecionar referenciar um scriptable object(ColorPicker), obter as cores existentes no ColorPicker,
+adicionar/remover cores e por fim enviar as novas cores.
+
 Obrigado pelo tempo e atenção!
